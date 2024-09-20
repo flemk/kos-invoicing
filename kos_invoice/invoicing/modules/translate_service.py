@@ -1,0 +1,3 @@
+class TranslateService():
+    def __init__(self):
+        ...

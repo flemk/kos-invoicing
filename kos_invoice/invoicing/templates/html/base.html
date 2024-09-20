@@ -1,0 +1,83 @@
+{% load static %}
+{% load cookie_consent_tags %}
+{% url "cookie_consent_cookie_group_list" as url_cookies %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}KOS Invoicing{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css">
+    {% if request|cookie_group_declined:"functional" %}
+    {% else %}
+        {# google analytics tag here #}
+    {% endif %}
+</head>
+<body>
+
+    <div class="header">
+        <h1>
+            <a href="/" style="text-decoration: none; color: black;">
+                {% block headline %}KOS Invoicing{% endblock %}
+            </a>
+        </h1>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="floating message {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% else %}
+            {% if user.is_authenticated and not messages %}
+            <div style="margin: auto 1rem auto auto; width: max-content; display: flex;">
+                <div style="margin: auto; min-width: max-content;">Welcome <i>{{ user.username }}</i>.</div>
+                <span>&nbsp;</span>
+                <a href="/logout_view" class="info button">Logout</a>
+            </div>
+            <div class="floating message info">
+                <div>You are logged in as <i>{{ user.username }}</i>.</div>
+                <a href="/logout_view" class="button">Not you?</a>
+            </div>
+            {% else %}
+                <div class="floating message info">You are not logged in.</div>
+            {% endif %}
+        {% endif %}
+        
+    </div>
+    <div class="main">
+        {% block content %}{% endblock %}
+    </div>
+    <div class="footer">
+        <div><a href="/about">About this project</a></div>
+        <div><a href="/contact">Imprint</a></div>
+        <div><a href="/privacy">Data-protection</a></div>
+        <div><a href="{{ url_cookies }}">Cookies policy</a></div>
+        <div>&copy; 2024 Franz Ludwig Kostelezky (info@kostelezky.com)</div>
+        <div class="soft">Version reference: %KOS_INVOICING_WEB_VERSION%</div>
+    </div>
+
+    {% if request|cookie_consent_enabled %}
+        {% not_accepted_or_declined_cookie_groups request as cookie_groups %}
+
+        {% cookie_consent_accept_url cookie_groups as url_accept %}
+        {% cookie_consent_decline_url cookie_groups as url_decline %}
+
+        {% all_cookie_groups 'cookie-consent__cookie-groups' %}
+        <template id="cookie-consent__cookie-bar">
+            {% with cookie_groups=cookie_groups|join:", " %}
+            <div class="cookie-bar floating info message retain" style="display: block;">
+                This site uses {{ cookie_groups }} cookies for better performance and user experience.
+                Do you agree to use these cookies?
+                <br>
+                <button type="button" class="cookie-consent__accept">Accept</button>
+                <button type="button" class="cookie-consent__decline">Decline</button>
+                <br>
+                For more information please refer to our <a href="{{ url_cookies }}">Cookies policy</a>.
+            </div>
+            {% endwith %}
+        </template>
+        {% url 'cookie_consent_status' as status_url %}
+        {% include "./show-cookie-bar-script.html" with status_url=status_url %}
+    {% endif %}
+</body>
+</html>
