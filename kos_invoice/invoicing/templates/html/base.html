@@ -21,6 +21,9 @@
                 {% block headline %}KOS Invoicing{% endblock %}
             </a>
         </h1>
+        <div style="margin: auto;">
+            <input type="text" placeholder="Search..." style="width: 35rem;">
+        </div>
         {% if messages %}
             {% for message in messages %}
                 <div class="floating message {{ message.tags }}">
@@ -34,12 +37,12 @@
                 <span>&nbsp;</span>
                 <a href="/logout_view" class="info button">Logout</a>
             </div>
-            <div class="floating message info">
+            <!-- <div class="floating message info">
                 <div>You are logged in as <i>{{ user.username }}</i>.</div>
                 <a href="/logout_view" class="button">Not you?</a>
-            </div>
+            </div> -->
             {% else %}
-                <div class="floating message info">You are not logged in.</div>
+                <!-- <div class="floating message info">You are not logged in.</div> -->
             {% endif %}
         {% endif %}
         
