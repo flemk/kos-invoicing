@@ -35,7 +35,7 @@
             {% endfor %}
         {% else %}
             {% if user.is_authenticated and not messages %}
-            <div style="margin: auto 1rem auto 1rem; width: max-content; display: flex;">
+            <div style="margin: auto 2rem auto 1rem; width: max-content; display: flex;">
                 <div style="margin: auto; min-width: max-content;">Welcome <i>{{ user.username }}</i>.</div>
                 <span>&nbsp;</span>
                 <a href="/logout" class="info button">Logout</a>
