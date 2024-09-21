@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from .modules.translate_service import TranslateService
 from django.contrib.auth.decorators import login_required
+from .modules.translate_service import TranslateService
+from .forms import InvoiceForm
 
 ts = TranslateService()
 
@@ -20,3 +21,15 @@ def dashboard(request):
         'projects': projects,
     }
     return render(request, 'templates/html/dashboard.html', context)
+
+@login_required
+def invoice_create(request):
+    user = request.user
+    form = InvoiceForm()
+
+    context = {
+        'ts': ts,
+        'form_title': 'Create Invoice',
+        'form': form,
+    }
+    return render(request, 'templates/html/form.html', context)

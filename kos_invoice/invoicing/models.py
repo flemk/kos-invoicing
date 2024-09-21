@@ -28,7 +28,7 @@ class Customer(models.Model):
     contact_person = models.CharField(max_length=100, blank=True)
     phone = models.CharField(max_length=20, blank=True)
     state = models.CharField(max_length=100, blank=False)
-    project = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
 
     # Required by xml template
     customer_id = models.CharField(max_length=100, blank=False)
@@ -36,7 +36,11 @@ class Customer(models.Model):
     street = models.CharField(max_length=100, blank=False)
     city = models.CharField(max_length=100, blank=False)
     postal_code = models.CharField(max_length=100, blank=False)
-    country = models.CharField(max_length=100, blank=False) # TODO change to Choice "DE" etc
+    country = models.CharField(max_length=2,
+                           blank=False,
+                            choices=[
+                               ("DE", "Germany"),
+                           ]) # TODO read from json config file
     name = models.CharField(max_length=100, blank=False)
 
     def __str__(self):
@@ -49,7 +53,11 @@ class Supplier(models.Model):
     street = models.CharField(max_length=100, blank=False)
     city = models.CharField(max_length=100, blank=False)
     postal_code = models.CharField(max_length=100, blank=False)
-    country = models.CharField(max_length=100, blank=False) # TODO change to Choice "DE" etc
+    country = models.CharField(max_length=2,
+                               blank=False,
+                               choices=[
+                                   ("DE", "Germany"),
+                               ]) # TODO read from json config file
     company_id = models.CharField(max_length=100, blank=False)
     hra_no = models.CharField(max_length=100, blank=False)
     hra_name = models.CharField(max_length=100, blank=False)
@@ -59,6 +67,7 @@ class Supplier(models.Model):
 
 class Invoice(models.Model):
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
+    invoice_items = models.ManyToManyField('InvoiceItem', blank=True)
 
     # Required by xml template
     invoice_number = models.CharField(max_length=100, blank=False)
@@ -68,19 +77,24 @@ class Invoice(models.Model):
     buyer_reference = models.CharField(max_length=100, blank=True)
     supplier = models.ForeignKey(Supplier, on_delete=models.SET_NULL, null=True)
     Customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
-    payment_means_code = models.CharField(max_length=100, blank=False) # TODO change to Choice "58" -> IBAN etc
+    payment_means_code = models.CharField(max_length=3,
+                                          blank=False,
+                                          choices=[
+                                              ("42", "SEPA")]) # TODO read from json config file
     payee_financial_account = models.CharField(max_length=100, blank=False)
     payment_terms = models.CharField(max_length=100, blank=False)
 
-    tax_scheme = models.CharField(max_length=100, blank=False) # TODO change to Choice "VAT" etc
+    tax_scheme = models.CharField(max_length=100,
+                                  blank=False,
+                                  choices=[
+                                      ("VAT", "VAT"),
+                                      ]) # TODO read from json config file
     price_tax = models.DecimalField(max_digits=10, decimal_places=2)
     price_net = models.DecimalField(max_digits=10, decimal_places=2)
     price_full = models.DecimalField(max_digits=10, decimal_places=2)
     tax_percentage = models.DecimalField(max_digits=10, decimal_places=2)
 
-class InvoicePosition(models.Model):
-    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
-
+class InvoiceItem(models.Model):
     # Required by xml template
     name = models.CharField(max_length=100, blank=False)
     price_net = models.DecimalField(max_digits=10, decimal_places=2)

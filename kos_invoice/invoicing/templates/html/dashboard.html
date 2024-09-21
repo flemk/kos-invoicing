@@ -18,13 +18,13 @@
     {% if projects %}
         <div class="tile-display" style="margin: 0;">
             {% for project in projects %}
-                <div class="tile">
+                <div class="tile" style="max-width: unset;">
                     <div>
                         <h3>{{ project.name }}</h3>
                         <p class="soft">{{ project.description }}</p>
                         {% include 'templates/html_components/inline_button.html' with label='Upload Invoice' fa_icon='fa-upload' href='/project/{{ project.id }}/invoice' %}
                         {% include 'templates/html_components/inline_button.html' with label='Invoices' fa_icon='fa-file-invoice' %}
-                        {% include 'templates/html_components/inline_button.html' with label='Create Invoice' fa_icon='fa-file-export' %}
+                        {% include 'templates/html_components/inline_button.html' with label='Create Invoice' fa_icon='fa-file-export' href='/project/invoice/create' %}
                         {% include 'templates/html_components/inline_button.html' with label='Suppliers' fa_icon='fa-boxes-stacked' %}
                         {% include 'templates/html_components/inline_button.html' with label='Customers' fa_icon='fa-user' %}
                         {% include 'templates/html_components/inline_button.html' with label='Labels' fa_icon='fa-tag' %}
