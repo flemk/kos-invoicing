@@ -21,7 +21,7 @@
                 {% block headline %}KOS Invoicing{% endblock %}
             </a>
         </h1>
-        <div style="margin: auto;">
+        <div class="no" style="margin: auto;">
             <i class="fas fa-search soft" style="margin-right: 0.15rem;"></i>
             <input type="text" placeholder="Search..." style="width: 35rem;">
         </div>
@@ -52,11 +52,12 @@
         {% block content %}{% endblock %}
     </div>
     <div class="footer">
-        <div><a href="/about">About this project</a></div>
-        <div><a href="/contact">Imprint</a></div>
-        <div><a href="/privacy">Data-protection</a></div>
-        <div><a href="{{ url_cookies }}">Cookies policy</a></div>
-        <div>&copy; 2024 Franz Ludwig Kostelezky (info@kostelezky.com)</div>
+        <div><a class="soft" href="/about">About this project</a></div>
+        <div><a class="soft" href="/contact">Imprint</a></div>
+        <div><a class="soft" href="/privacy">Data-protection</a></div>
+        <div><a class="soft" href="{{ url_cookies }}">Cookies policy</a></div>
+        <div class="spacer" style="height: 0.15rem;"></div>
+        <div class="soft">&copy; 2024 Franz Ludwig Kostelezky (info@kostelezky.com)</div>
         <div class="soft">Version reference: %KOS_INVOICING_WEB_VERSION%</div>
     </div>
 
