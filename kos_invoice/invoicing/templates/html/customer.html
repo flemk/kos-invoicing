@@ -12,9 +12,56 @@
     </span>
 </div>
 {% if customers %}
-
-
-
+    {% for customer in customers %}
+        <div class="tile" style="display: grid; margin-bottom: 1rem;">
+            <details>
+                <summary>
+                    <span style="display: inline-flex; width: 48vw;">
+                        <div style="display: inline;">
+                            <b>{{ customer.name }}</b>
+                            <div style="margin-top: 0.15rem;">
+                                <div class="soft">Contact Person</div>
+                                {{ customer.contact_person }}
+                            </div>
+                        </div>
+                        <div style="margin: auto 1rem auto auto;">
+                            {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-edit' href=project_id|stringformat:'s'|add:'/customer/edit/'|add:customer.id %}
+                        </div>
+                    </span>
+                </summary>
+                <div style="padding-left: 1.2rem;">
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">Email</div>
+                        {{ customer.email }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">Phone</div>
+                        {{ customer.phone }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">Street</div>
+                        {{ customer.street }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">City</div>
+                        {{ customer.city }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">State</div>
+                        {{ customer.state }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">Postal Code</div>
+                        {{ customer.postal_code }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">Country</div>
+                        {{ customer.country }}
+                    </div>
+                </div>
+            </details>
+        </div>
+    {% endfor %}
 {% else %}
     <div class="soft">
         No Customers found.

@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
 from .models import Customer, Project, Supplier
 from .modules.translate_service import TranslateService
 from .forms import CustomerForm, InvoiceForm, SupplierForm
@@ -77,6 +78,14 @@ def customer(request, project_id):
 
 def customer_create(request, project_id):
     form = CustomerForm()
+
+    if request.method == 'POST':
+        form = CustomerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Customer created successfully.')
+            return redirect('dashboard')
+        form = CustomerForm(request.POST)
 
     context = {
         'ts': ts,

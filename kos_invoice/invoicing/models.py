@@ -47,6 +47,8 @@ class Customer(models.Model):
         return str(self.name)
 
 class Supplier(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
+
     # Required by xml template
     email = models.EmailField(max_length=100, blank=False)
     company_name = models.CharField(max_length=100, blank=False)

@@ -22,6 +22,7 @@
             </a>
         </h1>
         <div style="margin: auto;">
+            <i class="fas fa-search soft" style="margin-right: 0.15rem;"></i>
             <input type="text" placeholder="Search..." style="width: 35rem;">
         </div>
         {% if messages %}
@@ -32,7 +33,7 @@
             {% endfor %}
         {% else %}
             {% if user.is_authenticated and not messages %}
-            <div style="margin: auto 1rem auto auto; width: max-content; display: flex;">
+            <div style="margin: auto 1rem auto 1rem; width: max-content; display: flex;">
                 <div style="margin: auto; min-width: max-content;">Welcome <i>{{ user.username }}</i>.</div>
                 <span>&nbsp;</span>
                 <a href="/logout_view" class="info button">Logout</a>
