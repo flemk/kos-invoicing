@@ -46,7 +46,7 @@ class Customer(models.Model):
     def __str__(self):
         return str(self.name)
 
-class Supplier(models.Model):
+class Payee(models.Model):
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
 
     # Required by xml template
@@ -77,7 +77,7 @@ class Invoice(models.Model):
     due_date = models.DateField(blank=False)
     note = models.TextField(blank=True)
     buyer_reference = models.CharField(max_length=100, blank=True)
-    supplier = models.ForeignKey(Supplier, on_delete=models.SET_NULL, null=True)
+    payee = models.ForeignKey(Payee, on_delete=models.SET_NULL, null=True)
     Customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
     payment_means_code = models.CharField(max_length=3,
                                           blank=False,

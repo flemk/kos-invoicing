@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import UserProfile, Project, Customer, Supplier, Invoice, InvoiceItem
+from .models import UserProfile, Project, Customer, Payee, Invoice, InvoiceItem
 
 class CreateUserForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(
@@ -22,9 +22,9 @@ class CustomerForm(forms.ModelForm):
         model = Customer
         fields = '__all__'
 
-class SupplierForm(forms.ModelForm):
+class PayeeForm(forms.ModelForm):
     class Meta:
-        model = Supplier
+        model = Payee
         fields = '__all__'
 
 class InvoiceForm(forms.ModelForm):
@@ -41,10 +41,10 @@ class InvoiceForm(forms.ModelForm):
         attrs={'type': 'date'}))
     buyer_reference = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': 'Buyer Reference'}))
-    supplier = forms.ModelChoiceField(
-        queryset=Supplier.objects.all(),
+    payee = forms.ModelChoiceField(
+        queryset=Payee.objects.all(),
         widget=forms.Select(
-            attrs={'class': 'input', 'placeholder': 'Select Supplier'})) # TODO filter by project
+            attrs={'class': 'input', 'placeholder': 'Select Payee'})) # TODO filter by project
     customer = forms.ModelChoiceField(
         queryset=Customer.objects.all(),
         widget=forms.Select(
@@ -87,7 +87,7 @@ class InvoiceForm(forms.ModelForm):
             'invoice_date',
             'due_date',
             'buyer_reference',
-            'supplier',
+            'payee',
             'customer',
             'invoice_items',
             'payment_means_code',

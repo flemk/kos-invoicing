@@ -2,9 +2,9 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from .models import Customer, Project, Supplier
+from .models import Customer, Project, Payee
 from .modules.translate_service import TranslateService
-from .forms import CustomerForm, InvoiceForm, SupplierForm
+from .forms import CustomerForm, InvoiceForm, PayeeForm
 
 ts = TranslateService()
 
@@ -94,22 +94,31 @@ def customer_create(request, project_id):
     }
     return render(request, 'templates/html/form.html', context)
 
-def supplier(request, project_id):
+def payee(request, project_id):
     project = Project.objects.get(id=project_id)
-    suppliers = Supplier.objects.filter(project=project)
+    payees = Payee.objects.filter(project=project)
 
     context = {
         'ts': ts,
         'project_id': str(project_id),
+        'payees': payees,
     }
-    return render(request, 'templates/html/supplier.html', context)
+    return render(request, 'templates/html/payee.html', context)
 
-def supplier_create(request, project_id):
-    form = SupplierForm()
+def payee_create(request, project_id):
+    form = PayeeForm()
+
+    if request.method == 'POST':
+        form = PayeeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Payee created successfully.')
+            return redirect('dashboard')
+        form = PayeeForm(request.POST)
 
     context = {
         'ts': ts,
-        'form_title': 'Create Supplier',
+        'form_title': 'Create Payee',
         'form': form,
     }
     return render(request, 'templates/html/form.html', context)

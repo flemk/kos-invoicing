@@ -1,0 +1,86 @@
+{% extends 'templates/html/base.html' %}
+
+{% block content %}
+<div style="width: min-content;">
+    <span style="display: flex;">
+        <h2>Payees</h2>
+        <div style="width: 2rem;"></div>
+        <span style="margin: auto;">
+            {% include 'templates/html_components/inline_button.html' with label='Add Payee' fa_icon='fa-plus' href='/'|add:project_id|add:'/payee/create' %}
+        </span>
+        <div class="spacer" style="height: 0; width: 1rem;"></div>
+    </span>
+</div>
+{% if payees %}
+    {% for payee in payees %}
+        <div class="tile" style="display: grid; margin-bottom: 1rem;">
+            <details>
+                <summary>
+                    <span style="display: inline-flex; width: 48vw;">
+                        <div style="display: inline;">
+                            <b>{{ payee.company_name }}</b>
+                            <div style="margin-top: 0.15rem;">
+                                <div class="soft">Project</div>
+                                {{ payee.project }}
+                            </div>
+                        </div>
+                        <div style="margin: auto 1rem auto auto;">
+                            {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-edit' href=project_id|stringformat:'s'|add:'/payee/edit/'|add:payee.id %}
+                        </div>
+                    </span>
+                </summary>
+                <div style="padding-left: 1.2rem;">
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">Email</div>
+                        {{ payee.email }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">Street</div>
+                        {{ payee.street }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">City</div>
+                        {{ payee.city }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">Postal Code</div>
+                        {{ payee.postal_code }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">Country</div>
+                        {{ payee.country }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">Company ID</div>
+                        {{ payee.company_id }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">HRA No</div>
+                        {{ payee.hra_no }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">HRA Name</div>
+                        {{ payee.hra_name }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">Contact Person</div>
+                        {{ payee.contact_name }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">Phone</div>
+                        {{ payee.contact_phone }}
+                    </div>
+                    <div style="margin-top: 0.15rem;">
+                        <div class="soft">Email</div>
+                        {{ payee.contact_email }}
+                    </div>
+                </div>
+            </details>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="soft">
+        No Payees found.
+    </div>
+{% endif %}
+{% endblock %}

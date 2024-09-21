@@ -8,6 +8,6 @@ urlpatterns = [
     path("<int:project_id>/invoice/create", views.invoice_create, name="invoice_create"),
     path("<int:project_id>/customer", views.customer, name="customer"),
     path("<int:project_id>/customer/create", views.customer_create, name="customer_create"),
-    path("<int:project_id>/supplier", views.supplier, name="supplier"),
-    path("<int:project_id>/supplier/create", views.supplier_create, name="supplier_create"),
+    path("<int:project_id>/payee", views.payee, name="payee"),
+    path("<int:project_id>/payee/create", views.payee_create, name="payee_create"),
 ]
