@@ -1,6 +1,6 @@
 :root {
-    --button-color: #44f;
-    --button-color-hover: rgb(48, 48, 197);
+    --button-color: #000;
+    --button-color-hover: #444;
 }
 
 html, body {

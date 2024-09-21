@@ -67,6 +67,9 @@ class Payee(models.Model):
     contact_phone = models.CharField(max_length=100, blank=False)
     contact_email = models.EmailField(max_length=100, blank=False)
 
+    def __str__(self):
+        return str(self.company_name)
+
 class Invoice(models.Model):
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
     invoice_items = models.ManyToManyField('InvoiceItem', blank=True)

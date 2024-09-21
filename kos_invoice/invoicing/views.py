@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import Customer, Project, Payee
 from .modules.translate_service import TranslateService
@@ -25,14 +25,16 @@ def login_view(request):
 
             login(request, user)
             return dashboard(request)
-        else:
-            print('Invalid credentials')
-            return render(request, 'login.html', context={'login_error': 'Invalid credentials'})
+        context['login_error'] = 'Invalid credentials'
 
     if request.user.is_authenticated:
         return redirect('dashboard')
 
-    return render(request, 'login.html', context)
+    return render(request, 'templates/html/login.html', context)
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 @login_required
 def dashboard(request):

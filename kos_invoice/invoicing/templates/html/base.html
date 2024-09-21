@@ -21,10 +21,12 @@
                 {% block headline %}KOS Invoicing{% endblock %}
             </a>
         </h1>
-        <div class="no" style="margin: auto;">
-            <i class="fas fa-search soft" style="margin-right: 0.15rem;"></i>
-            <input type="text" placeholder="Search..." style="width: 35rem;">
-        </div>
+        {% if user.is_authenticated %}
+            <div class="no" style="margin: auto;">
+                <i class="fas fa-search soft" style="margin-right: 0.15rem;"></i>
+                <input type="text" placeholder="Search..." style="width: 35rem;">
+            </div>
+        {% endif %}
         {% if messages %}
             {% for message in messages %}
                 <div class="floating message {{ message.tags }}">
@@ -36,7 +38,7 @@
             <div style="margin: auto 1rem auto 1rem; width: max-content; display: flex;">
                 <div style="margin: auto; min-width: max-content;">Welcome <i>{{ user.username }}</i>.</div>
                 <span>&nbsp;</span>
-                <a href="/logout_view" class="info button">Logout</a>
+                <a href="/logout" class="info button">Logout</a>
             </div>
             <!-- <div class="floating message info">
                 <div>You are logged in as <i>{{ user.username }}</i>.</div>
