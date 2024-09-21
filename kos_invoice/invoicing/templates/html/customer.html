@@ -1,0 +1,23 @@
+{% extends 'templates/html/base.html' %}
+
+{% block content %}
+<div style="width: min-content;">
+    <span style="display: flex;">
+        <h2>Customers</h2>
+        <div style="width: 2rem;"></div>
+        <span style="margin: auto;">
+            {% include 'templates/html_components/inline_button.html' with label='Add Customer' fa_icon='fa-plus' href='/'|add:project_id|add:'/customer/create' %}
+        </span>
+        <div class="spacer" style="height: 0; width: 1rem;"></div>
+    </span>
+</div>
+{% if customers %}
+
+
+
+{% else %}
+    <div class="soft">
+        No Customers found.
+    </div>
+{% endif %}
+{% endblock %}

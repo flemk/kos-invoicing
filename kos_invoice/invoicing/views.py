@@ -1,8 +1,9 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
+from .models import Customer, Project, Supplier
 from .modules.translate_service import TranslateService
-from .forms import InvoiceForm
+from .forms import CustomerForm, InvoiceForm, SupplierForm
 
 ts = TranslateService()
 
@@ -29,7 +30,7 @@ def login_view(request):
 
     if request.user.is_authenticated:
         return redirect('dashboard')
-    
+
     return render(request, 'login.html', context)
 
 @login_required
@@ -64,13 +65,42 @@ def invoice_create(request, project_id):
     return render(request, 'templates/html/form.html', context)
 
 def customer(request, project_id):
-    return render(request, 'templates/html/customer.html', {'ts': ts})
+    project = Project.objects.get(id=project_id)
+    customers = Customer.objects.filter(project=project)
+
+    context = {
+        'ts': ts,
+        'customers': customers,
+        'project_id': str(project_id),
+    }
+    return render(request, 'templates/html/customer.html', context)
 
 def customer_create(request, project_id):
-    return render(request, 'templates/html/form.html', {'ts': ts})
+    form = CustomerForm()
+
+    context = {
+        'ts': ts,
+        'form_title': 'Create Customer',
+        'form': form,
+    }
+    return render(request, 'templates/html/form.html', context)
 
 def supplier(request, project_id):
-    return render(request, 'templates/html/supplier.html', {'ts': ts})
+    project = Project.objects.get(id=project_id)
+    suppliers = Supplier.objects.filter(project=project)
+
+    context = {
+        'ts': ts,
+        'project_id': str(project_id),
+    }
+    return render(request, 'templates/html/supplier.html', context)
 
 def supplier_create(request, project_id):
-    return render(request, 'templates/html/form.html', {'ts': ts})
+    form = SupplierForm()
+
+    context = {
+        'ts': ts,
+        'form_title': 'Create Supplier',
+        'form': form,
+    }
+    return render(request, 'templates/html/form.html', context)
