@@ -28,6 +28,9 @@ html, body {
     min-height: calc(100vh - 15rem);
     overflow-y: hidden;
     margin-top: 5.5rem;
+    width: 70vw;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .footer {
@@ -213,7 +216,7 @@ h3 {
     padding: 1rem;
     border: 1px solid #ccc;
     border-radius: .5rem;
-    max-width: 50vw;
+    /*max-width: 50vw;*/
 }
 
 /* Disable showing strange radio buttons in safari*/

@@ -12,9 +12,9 @@
         </span>
     </div>
     {% if projects %}
-        <div class="tile-display" style="margin: 0;">
+        <div style="margin: 0 1rem auto auto;">
             {% for project in projects %}
-                <div class="tile" style="max-width: unset;">
+                <div class="tile" style="max-width: unset; margin-bottom: 1rem;">
                     <div>
                         <h3>{{ project.name }}</h3>
                         <p class="soft">{{ project.description }}</p>
@@ -28,7 +28,7 @@
                         {% include 'templates/html_components/inline_button.html' with label='Settings' fa_icon='fa-gear' %}
                     </div>
                     <div class="spacer"></div>
-                    <div class="tile" style="height: 10vh;">
+                    <div class="tile" style="height: 10vh; max-width: unset;">
                         <div class="soft" style="text-align: center;">
                             Business Insight Quickviews coming soon.
                         </div>
