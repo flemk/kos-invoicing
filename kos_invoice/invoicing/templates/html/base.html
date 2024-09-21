@@ -84,7 +84,7 @@
             {% endwith %}
         </template>
         {% url 'cookie_consent_status' as status_url %}
-        {% include "./show-cookie-bar-script.html" with status_url=status_url %}
+        {% include "templates/html_components/show-cookie-bar-script.html" with status_url=status_url %}
     {% endif %}
 </body>
 </html>

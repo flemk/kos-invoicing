@@ -6,7 +6,9 @@
         <h2>Customers</h2>
         <div style="width: 2rem;"></div>
         <span style="margin: auto;">
-            {% include 'templates/html_components/inline_button.html' with label='Add Customer' fa_icon='fa-plus' href='/'|add:project_id|add:'/customer/create' %}
+            {% with project_id=project.id|stringformat:'s' %}
+                {% include 'templates/html_components/inline_button.html' with label='Add Customer' fa_icon='fa-plus' href='/'|add:project_id|add:'/customer/create' %}
+            {% endwith %}
         </span>
         <div class="spacer" style="height: 0; width: 1rem;"></div>
     </span>
@@ -25,7 +27,9 @@
                             </div>
                         </div>
                         <div style="margin: auto 1rem auto auto;">
-                            {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-edit' href=project_id|stringformat:'s'|add:'/customer/edit/'|add:customer.id %}
+                            {% with customer_id=customer.id|stringformat:'s' project_id=project.id|stringformat:'s' %}
+                                {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-edit' href=project_id|stringformat:'s'|add:'/customer/edit/'|add:customer_id %}
+                            {% endwith %}
                         </div>
                     </span>
                 </summary>

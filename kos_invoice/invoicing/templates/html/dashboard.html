@@ -18,8 +18,8 @@
                     <div>
                         <h3>{{ project.name }}</h3>
                         <p class="soft">{{ project.description }}</p>
-                        {% include 'templates/html_components/inline_button.html' with label='Upload Invoice' fa_icon='fa-upload' href=project.id|stringformat:'s'|add:'/invoice' %}
-                        {% include 'templates/html_components/inline_button.html' with label='Invoices' fa_icon='fa-file-invoice' %}
+                        {% include 'templates/html_components/inline_button.html' with label='Upload Invoice' fa_icon='fa-upload' %}
+                        {% include 'templates/html_components/inline_button.html' with label='Invoices' fa_icon='fa-file-invoice' href=project.id|stringformat:'s'|add:'/invoice' %}
                         {% include 'templates/html_components/inline_button.html' with label='Create Invoice' fa_icon='fa-file-export' href=project.id|stringformat:'s'|add:'/invoice/create' %}
                         {% include 'templates/html_components/inline_button.html' with label='Payees' fa_icon='fa-boxes-stacked' href=project.id|stringformat:'s'|add:'/payee' %}
                         {% include 'templates/html_components/inline_button.html' with label='Customers' fa_icon='fa-user' href=project.id|stringformat:'s'|add:'/customer' %}

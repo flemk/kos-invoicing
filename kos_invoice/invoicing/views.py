@@ -48,6 +48,18 @@ def dashboard(request):
     return render(request, 'templates/html/dashboard.html', context)
 
 @login_required
+def invoice(request, project_id):
+    project = Project.objects.get(id=project_id)
+    invoices = Invoice.objects.filter(project=project)
+
+    context = {
+        'ts': ts,
+        'invoices': invoices,
+        'project': project,
+    }
+    return render(request, 'templates/html/invoice.html', context)
+
+@login_required
 def invoice_create(request, project_id):
     user = request.user
     form = InvoiceForm()
@@ -56,7 +68,8 @@ def invoice_create(request, project_id):
         form = InvoiceForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'templates/html/success.html', {'ts': ts})
+            messages.success(request, 'Invoice created successfully.')
+            return redirect('invoice', project_id=project_id)  # TODO redirect to invoice items
         else:
             form = InvoiceForm(request.POST)
 
@@ -68,6 +81,7 @@ def invoice_create(request, project_id):
     }
     return render(request, 'templates/html_components/form.html', context)
 
+@login_required
 def customer(request, project_id):
     project = Project.objects.get(id=project_id)
     customers = Customer.objects.filter(project=project)
@@ -75,10 +89,11 @@ def customer(request, project_id):
     context = {
         'ts': ts,
         'customers': customers,
-        'project_id': str(project_id),
+        'project': project,
     }
     return render(request, 'templates/html/customer.html', context)
 
+@login_required
 def customer_create(request, project_id):
     form = CustomerForm()
 
@@ -97,17 +112,19 @@ def customer_create(request, project_id):
     }
     return render(request, 'templates/html_components/form.html', context)
 
+@login_required
 def payee(request, project_id):
     project = Project.objects.get(id=project_id)
     payees = Payee.objects.filter(project=project)
 
     context = {
         'ts': ts,
-        'project_id': str(project_id),
+        'project': project,
         'payees': payees,
     }
     return render(request, 'templates/html/payee.html', context)
 
+@login_required
 def payee_create(request, project_id):
     form = PayeeForm()
 

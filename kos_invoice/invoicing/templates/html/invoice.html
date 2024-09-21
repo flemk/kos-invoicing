@@ -1,0 +1,50 @@
+{% extends 'templates/html/base.html' %}
+
+{% block content %}
+    <div style="width: min-content;">
+        <span style="display: flex;">
+            <h2>Invoices</h2>
+            <div style="width: 2rem;"></div>
+            <span style="margin: auto;">
+                {% with project_id=project.id|stringformat:'s' %}
+                    {% include 'templates/html_components/inline_button.html' with label='Add Invoice' fa_icon='fa-plus' href='/'|add:project_id|add:'/invoice/create' %}
+                {% endwith %}
+            </span>
+            <div class="spacer" style="height: 0; width: 1rem;"></div>
+        </span>
+    </div>
+    {% if invoices %}
+        {% for invoice in invoices %}
+            <div class="tile" style="display: grid; margin-bottom: 1rem;">
+                <details>
+                    <summary>
+                        <span style="display: inline-flex; width: 48vw;">
+                            <div style="display: inline;">
+                                <b>{{ invoice.invoice_number }}</b>
+                                <div style="margin-top: 0.15rem;">
+                                    <div class="soft">Project</div>
+                                    {{ invoice.project }}
+                                </div>
+                            </div>
+                            <div style="margin: auto 1rem auto auto;">
+                                {% with invoice_id=invoice.id|stringformat:'s' project_id=project.id|stringformat:'s' %}
+                                    {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-edit' href='/'|add:project_id|stringformat:'s'|add:'/invoice/edit/'|add:invoice_id %}
+                                {% endwith %}
+                            </div>
+                        </span>
+                    </summary>
+                    <div style="padding-left: 1.2rem;">
+                        <div style="margin-top: 0.15rem;">
+                            <div class="soft">Due Date</div>
+                            {{ invoice.due_date }}
+                        </div>
+                    </div>
+                </details>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="soft">
+            No Invoices found.
+        </div>
+    {% endif %}
+{% endblock %}

@@ -13,12 +13,12 @@
             <form method="post" style="display: grid;">
                 {% csrf_token %}
                 {% for field in form %}
+                    <label class="soft" for="{{ field.id_for_label }}">{{ field.label }}</label>
                     {% for error in field.errors %}
                         <div class="message error retain soft">
                             {{ error }}
                         </div>
                     {% endfor %}
-                    <label class="soft" for="{{ field.id_for_label }}">{{ field.label }}</label>
                     {{ field }}
                     <div class="spacer" style="height: 0.25rem;"></div>
                 {% endfor %}

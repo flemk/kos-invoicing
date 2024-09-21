@@ -84,7 +84,7 @@ class Invoice(models.Model):
     payment_means_code = models.CharField(max_length=3,
                                           blank=False,
                                           choices=[
-                                              ("42", "SEPA")]) # TODO read from json config file
+                                              ("58", "SEPA")]) # TODO read from json config file
     payee_financial_account = models.CharField(max_length=100, blank=False)
     payment_terms = models.CharField(max_length=100, blank=False)
 
