@@ -19,6 +19,7 @@ html, body {
 .header {
     border-bottom: 1px solid #ccc;
     display: flex;
+    background-color: #efefef50;
 }
 
 .main {
@@ -27,7 +28,8 @@ html, body {
 }
 
 .footer {
-    background-color: #efefef;
+    border-top: 1px solid #ccc;
+    background-color: #efefef50;
     width: -moz-available;
     min-height: 12vh;
     padding-top: 1rem;
