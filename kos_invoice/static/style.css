@@ -13,7 +13,7 @@ html, body {
 
 .header, .main, .footer {
     padding-left: 1rem;
-    width: calc(100vw - 2rem);
+    width: calc(100vw - 1rem);
 }
 
 .header {

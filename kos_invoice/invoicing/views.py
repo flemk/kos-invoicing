@@ -64,6 +64,7 @@ def invoice_create(request, project_id):
         'ts': ts,
         'form_title': 'Create Invoice',
         'form': form,
+        'complete_hint': 'Invoice Items can be added after completing this first step.',
     }
     return render(request, 'templates/html_components/form.html', context)
 

@@ -24,6 +24,11 @@
                 {% endfor %}
                 <div class="spacer"></div>
                 <input type="submit" value="Complete">
+                {% if complete_hint %}
+                    <div class="soft" style="text-align: center;">
+                        {{ complete_hint }}
+                    </div>
+                {% endif %}
             </form>
         {% endif %}
     </div>
