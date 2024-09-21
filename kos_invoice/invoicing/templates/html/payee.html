@@ -28,7 +28,7 @@
                             </div>
                             <div style="margin: auto 1rem auto auto;">
                                 {% with payee_id=payee.id|stringformat:'s' project_id=project.id|stringformat:'s' %}
-                                    {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-edit' href=project_id|stringformat:'s'|add:'/payee/edit/'|add:payee_id %}
+                                    {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-edit' href=project_id|stringformat:'s'|add:'/payee/'|add:payee_id|add:'/edit' %}
                                 {% endwith %}
                             </div>
                         </span>

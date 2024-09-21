@@ -60,6 +60,40 @@ def invoice(request, project_id):
     return render(request, 'templates/html/invoice.html', context)
 
 @login_required
+def invoice_detail(request, project_id, invoice_id):
+    return 0
+    invoice = Invoice.objects.get(id=invoice_id)
+    items = InvoiceItem.objects.filter(invoice=invoice)
+
+    context = {
+        'ts': ts,
+        'invoice': invoice,
+        'items': items,
+    }
+    return render(request, 'templates/html/invoice_detail.html', context)
+
+@login_required
+def invoice_edit(request, project_id, invoice_id):
+    return 0
+    invoice = Invoice.objects.get(id=invoice_id)
+    form = InvoiceForm(instance=invoice)
+
+    if request.method == 'POST':
+        form = InvoiceForm(request.POST, instance=invoice)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Invoice updated successfully.')
+            return redirect('invoice', project_id=project_id)
+        form = InvoiceForm(request.POST, instance=invoice)
+
+    context = {
+        'ts': ts,
+        'form_title': 'Edit Invoice',
+        'form': form,
+    }
+    return render(request, 'templates/html_components/form.html', context)
+
+@login_required
 def invoice_create(request, project_id):
     user = request.user
     form = InvoiceForm()
@@ -94,6 +128,38 @@ def customer(request, project_id):
     return render(request, 'templates/html/customer.html', context)
 
 @login_required
+def customer_detail(request, project_id, customer_id):
+    return 0
+    customer = Customer.objects.get(id=customer_id)
+
+    context = {
+        'ts': ts,
+        'customer': customer,
+    }
+    return render(request, 'templates/html/customer_detail.html', context)
+
+@login_required
+def customer_edit(request, project_id, customer_id):
+    return 0
+    customer = Customer.objects.get(id=customer_id)
+    form = CustomerForm(instance=customer)
+
+    if request.method == 'POST':
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Customer updated successfully.')
+            return redirect('customer', project_id=project_id)
+        form = CustomerForm(request.POST, instance=customer)
+
+    context = {
+        'ts': ts,
+        'form_title': 'Edit Customer',
+        'form': form,
+    }
+    return render(request, 'templates/html_components/form.html', context)
+
+@login_required
 def customer_create(request, project_id):
     form = CustomerForm()
 
@@ -123,6 +189,38 @@ def payee(request, project_id):
         'payees': payees,
     }
     return render(request, 'templates/html/payee.html', context)
+
+@login_required
+def payee_detail(request, project_id, payee_id):
+    return 0
+    payee = Payee.objects.get(id=payee_id)
+
+    context = {
+        'ts': ts,
+        'payee': payee,
+    }
+    return render(request, 'templates/html/payee_detail.html', context)
+
+@login_required
+def payee_edit(request, project_id, payee_id):
+    return 0
+    payee = Payee.objects.get(id=payee_id)
+    form = PayeeForm(instance=payee)
+
+    if request.method == 'POST':
+        form = PayeeForm(request.POST, instance=payee)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Payee updated successfully.')
+            return redirect('payee', project_id=project_id)
+        form = PayeeForm(request.POST, instance=payee)
+
+    context = {
+        'ts': ts,
+        'form_title': 'Edit Payee',
+        'form': form,
+    }
+    return render(request, 'templates/html_components/form.html', context)
 
 @login_required
 def payee_create(request, project_id):
