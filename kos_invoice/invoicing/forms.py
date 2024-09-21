@@ -17,6 +17,16 @@ class CreateUserForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+class CustomerForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = '__all__'
+
+class SupplierForm(forms.ModelForm):
+    class Meta:
+        model = Supplier
+        fields = '__all__'
+
 class InvoiceForm(forms.ModelForm):
     project = forms.ModelChoiceField(
         queryset=Project.objects.all(), # TODO filter by user
