@@ -49,9 +49,6 @@ class InvoiceForm(forms.ModelForm):
         queryset=Customer.objects.all(),
         widget=forms.Select(
             attrs={'class': 'input', 'placeholder': 'Select Customer'})) # TODO filter by project
-    invoice_items = forms.ModelMultipleChoiceField(
-        queryset=InvoiceItem.objects.all(),
-        ) # TODO filter by project
     payment_means_code = forms.ChoiceField(
         choices=[
             ('58', 'SEPA credit transfer'), # TODO read from json config file
@@ -89,7 +86,6 @@ class InvoiceForm(forms.ModelForm):
             'buyer_reference',
             'payee',
             'customer',
-            'invoice_items',
             'payment_means_code',
             'payee_financial_account',
             'payment_terms',
@@ -100,3 +96,8 @@ class InvoiceForm(forms.ModelForm):
             'tax_percentage',
             'note',
             ]
+
+class InvoiceItemForm(forms.ModelForm):
+    class Meta:
+        model = InvoiceItem
+        fields = '__all__'

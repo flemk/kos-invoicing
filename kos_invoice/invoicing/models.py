@@ -72,7 +72,6 @@ class Payee(models.Model):
 
 class Invoice(models.Model):
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
-    invoice_items = models.ManyToManyField('InvoiceItem', blank=True)
 
     # Required by xml template
     invoice_number = models.CharField(max_length=100, blank=False)
@@ -100,6 +99,10 @@ class Invoice(models.Model):
     tax_percentage = models.DecimalField(max_digits=10, decimal_places=2)
 
 class InvoiceItem(models.Model):
+    invoice = models.ForeignKey(Invoice,
+                                on_delete=models.CASCADE,
+                                related_name='invoice_items')
+
     # Required by xml template
     name = models.CharField(max_length=100, blank=False)
     price_net = models.DecimalField(max_digits=10, decimal_places=2)

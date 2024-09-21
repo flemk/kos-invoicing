@@ -2,9 +2,9 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import Customer, Project, Payee
+from .models import Customer, Invoice, InvoiceItem, Project, Payee
 from .modules.translate_service import TranslateService
-from .forms import CustomerForm, InvoiceForm, PayeeForm
+from .forms import CustomerForm, InvoiceForm, InvoiceItemForm, PayeeForm
 
 ts = TranslateService()
 
@@ -65,7 +65,7 @@ def invoice_create(request, project_id):
         'form_title': 'Create Invoice',
         'form': form,
     }
-    return render(request, 'templates/html/form.html', context)
+    return render(request, 'templates/html_components/form.html', context)
 
 def customer(request, project_id):
     project = Project.objects.get(id=project_id)
@@ -94,7 +94,7 @@ def customer_create(request, project_id):
         'form_title': 'Create Customer',
         'form': form,
     }
-    return render(request, 'templates/html/form.html', context)
+    return render(request, 'templates/html_components/form.html', context)
 
 def payee(request, project_id):
     project = Project.objects.get(id=project_id)
@@ -123,4 +123,4 @@ def payee_create(request, project_id):
         'form_title': 'Create Payee',
         'form': form,
     }
-    return render(request, 'templates/html/form.html', context)
+    return render(request, 'templates/html_components/form.html', context)
