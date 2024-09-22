@@ -118,7 +118,6 @@ def invoice_create(request, project_id):
 
 @login_required
 def invoice_item_add(request, project_id, invoice_id):
-    return 0
     invoice = Invoice.objects.get(id=invoice_id)
     form = InvoiceItemForm()
 
@@ -127,7 +126,7 @@ def invoice_item_add(request, project_id, invoice_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Invoice Item added successfully.')
-            return redirect('invoice', project_id=project_id)
+            return redirect('invoice_detail', project_id=project_id, invoice_id=invoice.id)
         else:
             form = InvoiceItemForm(request.POST)
 
@@ -135,6 +134,7 @@ def invoice_item_add(request, project_id, invoice_id):
         'ts': ts,
         'form_title': 'Add Invoice Item',
         'form': form,
+        'complete_hint': 'You will be redirected to the Invoice after adding the item.',
     }
     return render(request, 'templates/html_components/form.html', context)
 

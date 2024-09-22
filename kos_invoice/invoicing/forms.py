@@ -98,6 +98,10 @@ class InvoiceForm(forms.ModelForm):
             ]
 
 class InvoiceItemForm(forms.ModelForm):
+    period_start = forms.DateField(widget=forms.DateInput(
+        attrs={'type': 'date',}))
+    period_end = forms.DateField(widget=forms.DateInput(
+        attrs={'type': 'date',}))
     class Meta:
         model = InvoiceItem
         fields = '__all__'

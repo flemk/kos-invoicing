@@ -36,8 +36,8 @@
                     <h3 style="margin-top: auto;">Items</h3>
                     <div style="width: 2rem;"></div>
                     <span style="margin: auto 0 auto auto;">
-                        {% with project_id=project.id|stringformat:'s' %}
-                            {% include 'templates/html_components/inline_button.html' with label='Add Item' fa_icon='fa-plus' href='/'|add:project_id|add:'/invoice/create' %}
+                        {% with project_id=project.id|stringformat:'s' invoice_id=invoice.id|stringformat:'s' %}
+                            {% include 'templates/html_components/inline_button.html' with label='Add Item' fa_icon='fa-plus' href='/'|add:project_id|add:'/invoice/'|add:invoice_id|add:'/item/add' %}
                         {% endwith %}
                     </span>
                 </span>
@@ -51,17 +51,44 @@
                     <div class="invoice-item" style="display: grid;">
                         <div style="display: inline-flex; width: calc(70vw - 5rem - 5%);">
                             <div style="display: inline;">
-                                <b>Item</b>
-                                <div class="soft">Description</div>
-                                <div>{{ invoice }}</div>
+                                <b>{{ item.name }}</b>
+                                <div class="soft">Timeframe</div>
+                                <div>{{ item.period_start }} - {{ item.period_end }}</div>
                             </div>
                             <div style="margin: auto 1rem auto auto;">
                                 <div class="soft">Amount</div>
-                                <div>{{ invoice }}</div>
+                                <div>{{ item.price_net }}</div>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
+            </div>
+            <div class="spacer"></div>
+            <div class="invoice-financial">
+                <span style="display: flex; border-bottom: 1px solid #ccc;">
+                    <h3 style="margin-top: auto;">Financial terms</h3>
+                </span>
+                <div class="spacer"></div>
+                <div>
+                    <div class="soft">Financial account</div>
+                    <div>{{ invoice.payee_financial_account }}</div>
+                </div>
+                <div>
+                    <div class="soft">Payment means Code</div>
+                    <div>{{ invoice.payment_means_code }}</div>
+                </div>
+                <div>
+                    <div class="soft">Payment Terms</div>
+                    <div>{{ invoice.payment_terms }}</div>
+                </div>
+                <div>
+                    <div class="soft">Tax Scheme</div>
+                    <div>{{ invoice.tax_scheme }}</div>
+                </div>
+                <div>
+                    <div class="soft">Tax percentage</div>
+                    <div>{{ invoice.tax_percentage }}</div>
+                </div>
             </div>
         </div>
         <div class="invoice-footer"></div>
