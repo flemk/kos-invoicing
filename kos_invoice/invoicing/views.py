@@ -75,7 +75,6 @@ def invoice_detail(request, project_id, invoice_id):
 
 @login_required
 def invoice_edit(request, project_id, invoice_id):
-    return 0
     invoice = Invoice.objects.get(id=invoice_id)
     form = InvoiceForm(instance=invoice)
 
@@ -84,7 +83,7 @@ def invoice_edit(request, project_id, invoice_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Invoice updated successfully.')
-            return redirect('invoice', project_id=project_id)
+            return redirect('invoice_detail', project_id=project_id, invoice_id=invoice.id)
         form = InvoiceForm(request.POST, instance=invoice)
 
     context = {
@@ -145,6 +144,7 @@ def invoice_item_remove(request, project_id, invoice_id, item_id):
     messages.success(request, 'Invoice Item removed successfully.')
     return redirect('invoice_detail', project_id=project_id, invoice_id=invoice_id)
 
+@login_required
 def invoice_item_edit(request, project_id, invoice_id, item_id):
     item = InvoiceItem.objects.get(id=item_id)
     form = InvoiceItemForm(instance=item)
