@@ -1,0 +1,69 @@
+{% extends 'templates/html/base.html' %}
+
+{% block content %}
+    <div style="width: min-content;">
+        <span style="display: flex;">
+            <h2>Invoice</h2>
+            <div class="spacer" style="width: 2rem;"></div>
+            <span class="soft" style="margin: auto auto 1.4rem auto;">
+                {{ invoice.invoice_number }}
+            </span>
+        </span>
+    </div>
+    <div class="spacer"></div>    
+    <div class="invoice" style="">
+        <div class="invoice-title" style="text-align: center;"></div>
+        <div class="invoice-head" style="display: flex;">
+            <div class="invoice-head-left" style="margin: 0 auto 0 0;">
+                <h3>Customer</h3>
+                <div>{{ invoice.customer.name }}</div>
+                <div>{{ invoice.customer.street }}</div>
+                <div>{{ invoice.customer.postal_code }}{{ invoice.customer.city }}</div>
+                <div>{{ invoice.customer.country }}</div>
+            </div>
+            <div class="invoice-head-right" style="margin: 0 0 0 auto; text-align: right;">
+                <h3>Payee</h3>
+                <div>{{ invoice.payee.company_name }}</div>
+                <div>{{ invoice.payee.street }}</div>
+                <div>{{ invoice.payee.postal_code }}{{ invoice.payee.city }}</div>
+                <div>{{ invoice.payee.country }}</div>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="invoice-body">
+            <div class="invoice-items">
+                <span style="display: flex; border-bottom: 1px solid #ccc;">
+                    <h3 style="margin-top: auto;">Items</h3>
+                    <div style="width: 2rem;"></div>
+                    <span style="margin: auto 0 auto auto;">
+                        {% with project_id=project.id|stringformat:'s' %}
+                            {% include 'templates/html_components/inline_button.html' with label='Add Item' fa_icon='fa-plus' href='/'|add:project_id|add:'/invoice/create' %}
+                        {% endwith %}
+                    </span>
+                </span>
+                <div class="spacer"></div>
+
+                {% if not invoice.invoice_items.all %}
+                    <div class="soft">No items found.</div>
+                {% endif %}
+
+                {% for item in invoice.invoice_items.all %}
+                    <div class="invoice-item" style="display: grid;">
+                        <div style="display: inline-flex; width: calc(70vw - 5rem - 5%);">
+                            <div style="display: inline;">
+                                <b>Item</b>
+                                <div class="soft">Description</div>
+                                <div>{{ invoice }}</div>
+                            </div>
+                            <div style="margin: auto 1rem auto auto;">
+                                <div class="soft">Amount</div>
+                                <div>{{ invoice }}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="invoice-footer"></div>
+    </div>
+{% endblock%}

@@ -28,7 +28,7 @@
                             </div>
                             <div style="margin: auto 1rem auto auto;">
                                 {% with invoice_id=invoice.id|stringformat:'s' project_id=project.id|stringformat:'s' %}
-                                    {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-edit' href='/'|add:project_id|stringformat:'s'|add:'/invoice/'|add:invoice_id|add:'/edit' %}
+                                    {% include 'templates/html_components/inline_button.html' with label='Detail' fa_icon='fa-arrow-up-right-from-square' href='/'|add:project_id|stringformat:'s'|add:'/invoice/'|add:invoice_id %}
                                 {% endwith %}
                             </div>
                         </span>

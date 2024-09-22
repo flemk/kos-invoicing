@@ -80,7 +80,7 @@ class Invoice(models.Model):
     note = models.TextField(blank=True)
     buyer_reference = models.CharField(max_length=100, blank=True)
     payee = models.ForeignKey(Payee, on_delete=models.SET_NULL, null=True)
-    Customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
     payment_means_code = models.CharField(max_length=3,
                                           blank=False,
                                           choices=[

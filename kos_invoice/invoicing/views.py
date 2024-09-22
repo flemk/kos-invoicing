@@ -61,12 +61,13 @@ def invoice(request, project_id):
 
 @login_required
 def invoice_detail(request, project_id, invoice_id):
-    return 0
+    project = Project.objects.get(id=project_id)
     invoice = Invoice.objects.get(id=invoice_id)
     items = InvoiceItem.objects.filter(invoice=invoice)
 
     context = {
         'ts': ts,
+        'project': project,
         'invoice': invoice,
         'items': items,
     }
@@ -101,9 +102,9 @@ def invoice_create(request, project_id):
     if request.method == 'POST':
         form = InvoiceForm(request.POST)
         if form.is_valid():
-            form.save()
+            invoice = form.save()
             messages.success(request, 'Invoice created successfully.')
-            return redirect('invoice', project_id=project_id)  # TODO redirect to invoice items
+            return redirect('invoice_detail', project_id=project_id, invoice_id=invoice.id)
         else:
             form = InvoiceForm(request.POST)
 
@@ -112,6 +113,28 @@ def invoice_create(request, project_id):
         'form_title': 'Create Invoice',
         'form': form,
         'complete_hint': 'Invoice Items can be added after completing this first step.',
+    }
+    return render(request, 'templates/html_components/form.html', context)
+
+@login_required
+def invoice_item_add(request, project_id, invoice_id):
+    return 0
+    invoice = Invoice.objects.get(id=invoice_id)
+    form = InvoiceItemForm()
+
+    if request.method == 'POST':
+        form = InvoiceItemForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Invoice Item added successfully.')
+            return redirect('invoice', project_id=project_id)
+        else:
+            form = InvoiceItemForm(request.POST)
+
+    context = {
+        'ts': ts,
+        'form_title': 'Add Invoice Item',
+        'form': form,
     }
     return render(request, 'templates/html_components/form.html', context)
 
