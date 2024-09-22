@@ -26,9 +26,12 @@
                                     {{ payee.project }}
                                 </div>
                             </div>
-                            <div style="margin: auto 1rem auto auto;">
+                            <div style="margin: auto 1rem auto auto; display: flex;">
                                 {% with payee_id=payee.id|stringformat:'s' project_id=project.id|stringformat:'s' %}
                                     {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-edit' href='/'|add:project_id|stringformat:'s'|add:'/payee/'|add:payee_id|add:'/edit' %}
+                                    <div class="spacer" style="height: 0; width: 1rem;"></div>
+                                    {% include 'templates/html_components/inline_button.html' with label='Delete' fa_icon='fa-trash-can' %}
+                                    {# href='/'|add:project_id|stringformat:'s'|add:'/payee/'|add:payee_id|add:'/delete' #}
                                 {% endwith %}
                             </div>
                         </span>

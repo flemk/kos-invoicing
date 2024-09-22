@@ -26,9 +26,12 @@
                                 {{ customer.contact_person }}
                             </div>
                         </div>
-                        <div style="margin: auto 1rem auto auto;">
+                        <div style="margin: auto 1rem auto auto; display: flex;">
                             {% with customer_id=customer.id|stringformat:'s' project_id=project.id|stringformat:'s' %}
                                 {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-edit' href='/'|add:project_id|stringformat:'s'|add:'/customer/'|add:customer_id|add:'/edit' %}
+                                <div class="spacer" style="height: 0; width: 1rem;"></div>
+                                {% include 'templates/html_components/inline_button.html' with label='Delete' fa_icon='fa-trash-can' %}
+                                {# href='/'|add:project_id|stringformat:'s'|add:'/customer/'|add:customer_id|add:'/delete' #}
                             {% endwith %}
                         </div>
                     </span>
