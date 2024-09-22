@@ -49,18 +49,19 @@
 
                 {% for item in invoice.invoice_items.all %}
                     <div class="invoice-item" style="display: grid;">
-                        <div style="display: inline-flex; width: calc(70vw - 5rem - 5%);">
+                        <div style="display: inline-flex;">
                             <div style="display: inline;">
                                 <b>{{ item.name }}</b>
-                                <div class="soft">Timeframe</div>
+                                <div class="soft"></div>
                                 <div>{{ item.period_start }} - {{ item.period_end }}</div>
                             </div>
-                            <div style="margin: auto 1rem auto auto;">
+                            <div style="margin: auto 1rem auto auto; text-align: right;">
                                 <div class="soft">Amount</div>
                                 <div>{{ item.price_net }}</div>
                             </div>
                         </div>
                     </div>
+                    <div class="spacer"></div>
                 {% endfor %}
             </div>
             <div class="spacer"></div>
