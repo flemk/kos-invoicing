@@ -1,5 +1,7 @@
 <a href="{{ href | default:'#' }}" class="info button {% if not href %}no{% endif %}" style="text-align: center; height: unset; max-width: 10rem; padding: 0.5rem;">
     <i class="fa-solid {{ fa_icon }} fa-1x"></i>
-    &nbsp;
-    <span>{{ label }}</span>
+    {% if label %}
+        &nbsp;
+        <span>{{ label }}</span>
+    {% endif %}
 </a>
