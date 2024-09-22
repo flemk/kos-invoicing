@@ -34,4 +34,6 @@ urlpatterns = [
     path("<int:project_id>/payee/<int:payee_id>", views.payee_detail, name="payee_detail"),
     path("<int:project_id>/payee/<int:payee_id>/edit", views.payee_edit, name="payee_edit"),
     path("<int:project_id>/payee/create", views.payee_create, name="payee_create"),
+
+    path("confirm", views.confirm, name="confirm"),
 ]

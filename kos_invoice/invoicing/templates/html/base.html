@@ -8,7 +8,6 @@
     <title>{% block title %}KOS Invoicing{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css">
-    <script src="{% static 'script.js' %}"></script>
 
     {% if request|cookie_group_declined:"functional" %}
     {% else %}

@@ -1,3 +1,4 @@
+from django.http import HttpResponseBadRequest
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -308,3 +309,21 @@ def payee_create(request, project_id):
         'form': form,
     }
     return render(request, 'templates/html_components/form.html', context)
+
+@login_required
+def confirm(request):
+    if request.method == 'POST':
+        redirect_url_confirmed = request.POST.get('redirect_url_confirmed')
+        redirect_url_declined = request.POST.get('redirect_url_declined')
+        title = request.POST.get('title')
+        message = request.POST.get('message')
+
+        context = {
+            'ts': ts,
+            'redirect_url_confirmed': redirect_url_confirmed,
+            'redirect_url_declined': redirect_url_declined,
+            'title': title,
+            'message': message,
+        }
+        return render(request, 'templates/html_components/confirm.html', context)
+    return HttpResponseBadRequest()

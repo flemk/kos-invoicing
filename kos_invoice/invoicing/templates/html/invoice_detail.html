@@ -26,7 +26,7 @@
             <div class="spacer" style="width: 1rem;"></div>
             <div>
                 {% with project_id=project.id|stringformat:'s' invoice_id=invoice.id|stringformat:'s' %}
-                    {% include 'templates/html_components/inline_button.html' with label='Delete' fa_icon='fa-trash-can' href='/'|add:project_id|add:'/invoice/'|add:invoice_id|add:'/delete' confirmation='You are about to delete this invoice. Do you wish to proceed?' %}
+                    {% include 'templates/html_components/inline_button.html' with label='Delete' fa_icon='fa-trash-can' confirm=True redirect_url_confirmed='/'|add:project_id|add:'/invoice/'|add:invoice_id|add:'/delete' message='You are about to delete this invoice. Do you wish to proceed?' %}
                 {% endwith %}
             </div>
         </div>
@@ -87,7 +87,7 @@
                             </div>
                             <div style="margin-left: 1rem;">
                                 {% with project_id=project.id|stringformat:'s' invoice_id=invoice.id|stringformat:'s' item_id=item.id|stringformat:'s' %}
-                                    {% include 'templates/html_components/inline_button.html' with label='' fa_icon='fa-trash-can' href='/'|add:project_id|add:'/invoice/'|add:invoice_id|add:'/item/'|add:item_id|add:'/remove' confirmation='You are about to delete this item. Do you wish to proceed?' %}
+                                    {% include 'templates/html_components/inline_button.html' with label='' fa_icon='fa-trash-can' confirm=True redirect_url_confirmed='/'|add:project_id|add:'/invoice/'|add:invoice_id|add:'/item/'|add:item_id|add:'/remove' message='You are about to delete this item. Do you wish to proceed?' %}
                                 {% endwith %}
                             </div>
                         </div>
