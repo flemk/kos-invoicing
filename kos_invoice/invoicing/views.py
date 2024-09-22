@@ -209,7 +209,6 @@ def customer_detail(request, project_id, customer_id):
 
 @login_required
 def customer_edit(request, project_id, customer_id):
-    return 0
     customer = Customer.objects.get(id=customer_id)
     form = CustomerForm(instance=customer)
 
@@ -272,7 +271,6 @@ def payee_detail(request, project_id, payee_id):
 
 @login_required
 def payee_edit(request, project_id, payee_id):
-    return 0
     payee = Payee.objects.get(id=payee_id)
     form = PayeeForm(instance=payee)
 
