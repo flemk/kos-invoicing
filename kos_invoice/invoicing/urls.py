@@ -14,16 +14,18 @@ urlpatterns = [
     # <int:project_id>/invoice/<int:invoice_id>/export
     # <int:project_id>/invoice/<int:invoice_id>/delete
 
-    path("<int:project_id>/invoice/<int:invoice_id>/item/add", views.invoice_item_add,
-         name="invoice_item_add"),
-     # <int:project_id>/invoice/<int:invoice_id>/item/<int:item_id>/edit
-     # <int:project_id>/invoice/<int:invoice_id>/item/<int:item_id>/remove
+    path("<int:project_id>/invoice/<int:invoice_id>/item/add",
+        views.invoice_item_add, name="invoice_item_add"),
+    path("<int:project_id>/invoice/<int:invoice_id>/item/<int:item_id>/remove",
+        views.invoice_item_remove, name="invoice_item_remove"),
+    path("<int:project_id>/invoice/<int:invoice_id>/item/<int:item_id>/edit",
+        views.invoice_item_edit, name="invoice_item_edit"),
 
     path("<int:project_id>/customer", views.customer, name="customer"),
-    path("<int:project_id>/customer/<int:customer_id>", views.customer_detail,
-         name="customer_detail"),
-    path("<int:project_id>/customer/<int:customer_id>/edit", views.customer_edit,
-         name="customer_edit"),
+    path("<int:project_id>/customer/<int:customer_id>",
+        views.customer_detail, name="customer_detail"),
+    path("<int:project_id>/customer/<int:customer_id>/edit",
+        views.customer_edit, name="customer_edit"),
     path("<int:project_id>/customer/create", views.customer_create, name="customer_create"),
 
     path("<int:project_id>/payee", views.payee, name="payee"),

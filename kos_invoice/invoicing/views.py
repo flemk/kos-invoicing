@@ -139,6 +139,32 @@ def invoice_item_add(request, project_id, invoice_id):
     return render(request, 'templates/html_components/form.html', context)
 
 @login_required
+def invoice_item_remove(request, project_id, invoice_id, item_id):
+    item = InvoiceItem.objects.get(id=item_id)
+    item.delete()
+    messages.success(request, 'Invoice Item removed successfully.')
+    return redirect('invoice_detail', project_id=project_id, invoice_id=invoice_id)
+
+def invoice_item_edit(request, project_id, invoice_id, item_id):
+    item = InvoiceItem.objects.get(id=item_id)
+    form = InvoiceItemForm(instance=item)
+
+    if request.method == 'POST':
+        form = InvoiceItemForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Invoice Item updated successfully.')
+            return redirect('invoice_detail', project_id=project_id, invoice_id=invoice_id)
+        form = InvoiceItemForm(request.POST, instance=item)
+
+    context = {
+        'ts': ts,
+        'form_title': 'Edit Invoice Item',
+        'form': form,
+    }
+    return render(request, 'templates/html_components/form.html', context)
+
+@login_required
 def customer(request, project_id):
     project = Project.objects.get(id=project_id)
     customers = Customer.objects.filter(project=project)
