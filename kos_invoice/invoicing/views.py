@@ -116,6 +116,25 @@ def invoice_create(request, project_id):
     return render(request, 'templates/html_components/form.html', context)
 
 @login_required
+def invoice_delete(request, project_id, invoice_id):
+    invoice = Invoice.objects.get(id=invoice_id)
+    invoice.delete()
+    messages.success(request, 'Invoice removed successfully.')
+    return redirect('invoice', project_id=project_id)
+
+@login_required
+def invoice_export(request, project_id, invoice_id, filetype):
+    invoice = Invoice.objects.get(id=invoice_id)
+    items = InvoiceItem.objects.filter(invoice=invoice)
+
+    context = {
+        'ts': ts,
+        'invoice': invoice,
+        'items': items,
+    }
+    return render(request, 'templates/xml/invoice.xml', context, content_type='text/xml')
+
+@login_required
 def invoice_item_add(request, project_id, invoice_id):
     invoice = Invoice.objects.get(id=invoice_id)
     form = InvoiceItemForm()
