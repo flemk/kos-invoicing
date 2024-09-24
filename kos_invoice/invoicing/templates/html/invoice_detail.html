@@ -57,7 +57,7 @@
                     <div style="width: 2rem;"></div>
                     <span style="margin: auto 0 auto auto;">
                         {% with project_id=project.id|stringformat:'s' customer_id=invoice.customer.id|stringformat:'s' %}
-                            {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-arrow-up-right-from-square' href='/'|add:project_id|add:'/customer/'|add:customer_id|add:'/edit' %}
+                            {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-edit' href='/'|add:project_id|add:'/customer/'|add:customer_id|add:'/edit' %}
                         {% endwith %}
                     </span>
                 </span>
@@ -73,7 +73,7 @@
                     <div style="width: 2rem;"></div>
                     <span style="margin: auto 0 auto auto;">
                         {% with project_id=project.id|stringformat:'s' payee_id=invoice.payee.id|stringformat:'s' %}
-                            {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-arrow-up-right-from-square' href='/'|add:project_id|add:'/payee/'|add:payee_id|add:'/edit' %}
+                            {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-edit' href='/'|add:project_id|add:'/payee/'|add:payee_id|add:'/edit' %}
                         {% endwith %}
                     </span>
                 </span>
