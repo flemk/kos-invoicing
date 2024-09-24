@@ -130,10 +130,9 @@ def invoice_export(request, project_id, invoice_id, filetype):
 
     context = {
         'ts': ts,
-        'invoice': invoice,
-        'items': items,
+        'invoice': invoice
     }
-    return render(request, 'templates/xml/invoice.xml', context, content_type='text/xml')
+    return render(request, 'templates/xml/ubl-3.0.1-xrechnung-template.xml', context, content_type='text')
 
 @login_required
 def invoice_item_add(request, project_id, invoice_id):

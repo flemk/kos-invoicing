@@ -5,8 +5,8 @@
     <cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</cbc:CustomizationID>
     <cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID>
     <cbc:ID>{{ invoice.invoice_number }}</cbc:ID>
-    <cbc:IssueDate>{{ invoice.invoice_date }}</cbc:IssueDate>
-    <cbc:DueDate>{{ invoice.due_date }}</cbc:DueDate>
+    <cbc:IssueDate>{{ invoice.invoice_date|date:"Y-m-d" }}</cbc:IssueDate>
+    <cbc:DueDate>{{ invoice.due_date|date:"Y-m-d" }}</cbc:DueDate>
     <cbc:Note>{{ invoice.note }}</cbc:Note>
     <cbc:InvoiceTypeCode>{{ invoice.invoice_type_code }}</cbc:InvoiceTypeCode>
     <cbc:DocumentCurrencyCode>{{ invoice.currency_code }}</cbc:DocumentCurrencyCode>
@@ -91,14 +91,14 @@
         <cbc:TaxInclusiveAmount currencyID="{{ invoice.currency_code }}">{{ invoice.price_gross }}</cbc:TaxInclusiveAmount>
         <cbc:PayableAmount currencyID="{{ invoice.currency_code }}">{{ invoice.price_gross }}</cbc:PayableAmount>
     </cac:LegalMonetaryTotal>
-    {% for item in invoice.invoice_items %}
+    {% for item in invoice.invoice_items.all %}
         <cac:InvoiceLine>
             <cbc:ID>{{ item.id }}</cbc:ID>
             <cbc:InvoicedQuantity unitCode="{{ item.unit_code }}">{{ item.amount }}</cbc:InvoicedQuantity>
             <cbc:LineExtensionAmount currencyID="{{ invoice.currency_code }}">{{ item.price_net }}</cbc:LineExtensionAmount>
             <cac:InvoicePeriod>
-                <cbc:StartDate>{{ item.period_start }}</cbc:StartDate>
-                <cbc:EndDate>{{ item.period_end }}</cbc:EndDate>
+                <cbc:StartDate>{{ item.period_start|date:"Y-m-d" }}</cbc:StartDate>
+                <cbc:EndDate>{{ item.period_end|date:"Y-m-d" }}</cbc:EndDate>
             </cac:InvoicePeriod>
             <cac:Item>
                 <cbc:Name>{{ item.name }}</cbc:Name>

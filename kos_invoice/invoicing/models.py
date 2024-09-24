@@ -111,7 +111,7 @@ class InvoiceItem(models.Model):
     invoice = models.ForeignKey(Invoice,
                                 on_delete=models.CASCADE,
                                 related_name='invoice_items')
-    
+
     # Required by xml template but for now static
     unit_code = "XPP"
 
