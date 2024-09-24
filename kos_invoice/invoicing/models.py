@@ -101,8 +101,11 @@ class Invoice(models.Model):
     def price_net(self):
         return sum([item.price_net for item in self.invoice_items.all()])
 
+    def price_tax(self):
+        return round(self.price_net() * self.tax_percentage / 100, 2)
+
     def price_gross(self):
-        return self.price_net() * (1 + self.tax_percentage / 100)
+        return self.price_net() + self.price_tax()
 
     def __str__(self):
         return str(self.invoice_number)

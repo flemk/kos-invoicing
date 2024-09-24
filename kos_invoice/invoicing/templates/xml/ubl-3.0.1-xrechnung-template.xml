@@ -71,10 +71,10 @@
         <cbc:Note>{{ invoice.payment_terms }}</cbc:Note>
     </cac:PaymentTerms>
     <cac:TaxTotal>
-        <cbc:TaxAmount currencyID="{{ invoice.currency_code }}">{{ invoice.price_gross }}</cbc:TaxAmount>
+        <cbc:TaxAmount currencyID="{{ invoice.currency_code }}">{{ invoice.price_tax }}</cbc:TaxAmount>
         <cac:TaxSubtotal>
             <cbc:TaxableAmount currencyID="{{ invoice.currency_code }}">{{ invoice.price_net }}</cbc:TaxableAmount>
-            <cbc:TaxAmount currencyID="{{ invoice.currency_code }}">{{ invoice.price_gross }}</cbc:TaxAmount>
+            <cbc:TaxAmount currencyID="{{ invoice.currency_code }}">{{ invoice.price_tax }}</cbc:TaxAmount>
             <cac:TaxCategory>
                 <cbc:ID>{{ invoice.tax_category_code }}</cbc:ID>
                 <cbc:Percent>{{ invoice.tax_percentage }}</cbc:Percent>

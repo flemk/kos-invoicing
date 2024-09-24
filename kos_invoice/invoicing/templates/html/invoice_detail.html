@@ -1,11 +1,11 @@
 {% extends 'templates/html/base.html' %}
 
 {% block content %}
-    <div style="display: flex;">
+    <div style="display: flex; border-bottom: 1px solid #ccc;">
         <div style="width: min-content; display: flex;">
-            <h2>Invoice</h2>
+            <h2 style="margin-bottom: 0.1rem;">Invoice</h2>
             <div class="spacer" style="width: 2rem;"></div>
-            <div style="display: flex; margin: auto auto 1.4rem auto;">
+            <div style="display: flex; margin: auto auto 0.2rem auto;">
                 <span class="soft" style="margin: auto 0 0 0;">
                     {{ invoice.invoice_number }}
                 </span>
@@ -36,14 +36,32 @@
         <div class="invoice-title" style="text-align: center;"></div>
         <div class="invoice-head" style="display: flex;">
             <div class="invoice-head-left" style="margin: 0 auto 0 0;">
-                <h3>Customer</h3>
+                <span style="display: flex; border-bottom: 1px solid #ccc;">
+                    <h3 style="margin-top: auto;">Customer</h3>
+                    <div style="width: 2rem;"></div>
+                    <span style="margin: auto 0 auto auto;">
+                        {% with project_id=project.id|stringformat:'s' customer_id=invoice.customer.id|stringformat:'s' %}
+                            {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-arrow-up-right-from-square' href='/'|add:project_id|add:'/customer/'|add:customer_id|add:'/edit' %}
+                        {% endwith %}
+                    </span>
+                </span>
+                <div class="spacer"></div>
                 <div>{{ invoice.customer.name }}</div>
                 <div>{{ invoice.customer.street }}</div>
                 <div>{{ invoice.customer.postal_code }}&nbsp;{{ invoice.customer.city }}</div>
                 <div>{{ invoice.customer.country }}</div>
             </div>
             <div class="invoice-head-right" style="margin: 0 0 0 auto; text-align: right;">
-                <h3>Payee</h3>
+                <span style="display: flex; border-bottom: 1px solid #ccc;">
+                    <h3 style="margin-top: auto;">Payee</h3>
+                    <div style="width: 2rem;"></div>
+                    <span style="margin: auto 0 auto auto;">
+                        {% with project_id=project.id|stringformat:'s' payee_id=invoice.payee.id|stringformat:'s' %}
+                            {% include 'templates/html_components/inline_button.html' with label='Edit' fa_icon='fa-arrow-up-right-from-square' href='/'|add:project_id|add:'/payee/'|add:payee_id|add:'/edit' %}
+                        {% endwith %}
+                    </span>
+                </span>
+                <div class="spacer"></div>
                 <div>{{ invoice.payee.company_name }}</div>
                 <div>{{ invoice.payee.street }}</div>
                 <div>{{ invoice.payee.postal_code }}&nbsp;{{ invoice.payee.city }}</div>
@@ -62,7 +80,11 @@
                     <div>{{ invoice.price_net }}&nbsp;{{ invoice.currency_code }}</div>
                 </div>
                 <div>
-                    <div class="soft">Gross</div>
+                    <div class="soft">Taxable Amount ({{ invoice.tax_scheme }})</div>
+                    <div>{{ invoice.price_tax }}&nbsp;{{ invoice.currency_code }}</div>
+                </div>
+                <div>
+                    <div class="soft">Gross Price</div>
                     <div>{{ invoice.price_gross }}&nbsp;{{ invoice.currency_code }}</div>
                 </div>
             </div>
