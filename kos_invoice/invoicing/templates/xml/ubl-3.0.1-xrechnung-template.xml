@@ -7,8 +7,8 @@
     <cbc:ID>{{ invoice.invoice_number }}</cbc:ID>
     <cbc:IssueDate>{{ invoice.invoice_date|date:"Y-m-d" }}</cbc:IssueDate>
     <cbc:DueDate>{{ invoice.due_date|date:"Y-m-d" }}</cbc:DueDate>
-    <cbc:Note>{{ invoice.note }}</cbc:Note>
     <cbc:InvoiceTypeCode>{{ invoice.invoice_type_code }}</cbc:InvoiceTypeCode>
+    <cbc:Note>{{ invoice.note }}</cbc:Note>
     <cbc:DocumentCurrencyCode>{{ invoice.currency_code }}</cbc:DocumentCurrencyCode>
     <cbc:BuyerReference>{{ invoice.buyer_reference }}</cbc:BuyerReference>
     <cac:AccountingSupplierParty>
@@ -61,7 +61,6 @@
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingCustomerParty>
-
     <cac:PaymentMeans>
         <cbc:PaymentMeansCode>{{ invoice.payment_means_code }}</cbc:PaymentMeansCode>
         <cac:PayeeFinancialAccount>
@@ -72,10 +71,10 @@
         <cbc:Note>{{ invoice.payment_terms }}</cbc:Note>
     </cac:PaymentTerms>
     <cac:TaxTotal>
-        <cbc:TaxAmount currencyID="{{ invoice.currency_code }}">{{ data.priceTax }}</cbc:TaxAmount>
+        <cbc:TaxAmount currencyID="{{ invoice.currency_code }}">{{ invoice.price_gross }}</cbc:TaxAmount>
         <cac:TaxSubtotal>
-            <cbc:TaxableAmount currencyID="{{ invoice.currency_code }}">{{ data.priceNet }}</cbc:TaxableAmount>
-            <cbc:TaxAmount currencyID="{{ invoice.currency_code }}">{{ data.priceTax }}</cbc:TaxAmount>
+            <cbc:TaxableAmount currencyID="{{ invoice.currency_code }}">{{ invoice.price_net }}</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="{{ invoice.currency_code }}">{{ invoice.price_gross }}</cbc:TaxAmount>
             <cac:TaxCategory>
                 <cbc:ID>{{ invoice.tax_category_code }}</cbc:ID>
                 <cbc:Percent>{{ invoice.tax_percentage }}</cbc:Percent>

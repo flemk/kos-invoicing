@@ -65,12 +65,6 @@ class InvoiceForm(forms.ModelForm):
         ],
         widget=forms.Select(
         attrs={'class': 'input', 'placeholder': 'Tax Scheme'}))
-    price_tax = forms.DecimalField(widget=forms.NumberInput(
-        attrs={'placeholder': 'Price Tax'}))
-    price_net = forms.DecimalField(widget=forms.NumberInput(
-        attrs={'placeholder': 'Price Net'}))
-    price_full = forms.DecimalField(widget=forms.NumberInput(
-        attrs={'placeholder': 'Price Full'}))
     tax_percentage = forms.DecimalField(widget=forms.NumberInput(
         attrs={'placeholder': 'Tax Percentage'}))
     note = forms.CharField(widget=forms.Textarea(
@@ -90,9 +84,6 @@ class InvoiceForm(forms.ModelForm):
             'payee_financial_account',
             'payment_terms',
             'tax_scheme',
-            'price_tax',
-            'price_net',
-            'price_full',
             'tax_percentage',
             'note',
             ]
