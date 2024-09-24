@@ -10,7 +10,7 @@ class ProjectAdmin(admin.ModelAdmin):
 admin.site.register(Project, ProjectAdmin)
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'contact_person', 'email', 'city', 'country', 'project')
+    list_display = ('name', 'email', 'city', 'country')
 admin.site.register(Customer, CustomerAdmin)
 
 class PayeeAdmin(admin.ModelAdmin):

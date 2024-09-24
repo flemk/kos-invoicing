@@ -39,14 +39,14 @@
                 <h3>Customer</h3>
                 <div>{{ invoice.customer.name }}</div>
                 <div>{{ invoice.customer.street }}</div>
-                <div>{{ invoice.customer.postal_code }}{{ invoice.customer.city }}</div>
+                <div>{{ invoice.customer.postal_code }}&nbsp;{{ invoice.customer.city }}</div>
                 <div>{{ invoice.customer.country }}</div>
             </div>
             <div class="invoice-head-right" style="margin: 0 0 0 auto; text-align: right;">
                 <h3>Payee</h3>
                 <div>{{ invoice.payee.company_name }}</div>
                 <div>{{ invoice.payee.street }}</div>
-                <div>{{ invoice.payee.postal_code }}{{ invoice.payee.city }}</div>
+                <div>{{ invoice.payee.postal_code }}&nbsp;{{ invoice.payee.city }}</div>
                 <div>{{ invoice.payee.country }}</div>
             </div>
         </div>
