@@ -1,4 +1,4 @@
-from django.http import HttpResponseBadRequest
+from django.http import FileResponse, HttpResponseBadRequest
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -126,13 +126,17 @@ def invoice_delete(request, project_id, invoice_id):
 @login_required
 def invoice_export(request, project_id, invoice_id, filetype):
     invoice = Invoice.objects.get(id=invoice_id)
-    items = InvoiceItem.objects.filter(invoice=invoice)
 
     context = {
         'ts': ts,
         'invoice': invoice
     }
-    return render(request, 'templates/xml/ubl-3.0.1-xrechnung-template.xml', context, content_type='text')
+
+    if filetype != 'xml':
+        return HttpResponseBadRequest()
+
+    return render(request, 'templates/xml/ubl-3.0.1-xrechnung-template.xml',
+                  context, content_type='text')
 
 @login_required
 def invoice_item_add(request, project_id, invoice_id):

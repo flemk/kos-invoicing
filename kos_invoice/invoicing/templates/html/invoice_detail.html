@@ -13,8 +13,8 @@
         </div>
         <div style="width: min-content; margin: auto 0 0 auto; display: flex;">
             <div>
-                {% with project_id=project.id|stringformat:'s' invoice_id=invoice.id|stringformat:'s' %}
-                    {% include 'templates/html_components/inline_button.html' with label='XML Export' fa_icon='fa-file-export' href='/'|add:project_id|add:'/invoice/'|add:invoice_id|add:'/export/xml' %}
+                {% with project_id=project.id|stringformat:'s' invoice_id=invoice.id|stringformat:'s' invoice_number=invoice.invoice_number|stringformat:'s' %}
+                    {% include 'templates/html_components/inline_button.html' with label='XML Export' fa_icon='fa-file-export' href='/'|add:project_id|add:'/invoice/'|add:invoice_id|add:'/export/xml' target='_blank' download=invoice_number|add:'.xml' %}
                 {% endwith %}
             </div>
             <div class="spacer" style="width: 1rem;"></div>
