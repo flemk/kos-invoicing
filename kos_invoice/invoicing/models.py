@@ -1,6 +1,9 @@
+import hashlib
 import secrets
 from django.db import models
 from django.contrib.auth.models import User
+from django.core import serializers
+from django.utils import timezone
 
 def generate_api_key(): return secrets.token_hex(50)
 
@@ -69,6 +72,10 @@ class Payee(models.Model):
 class Invoice(models.Model):
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
 
+    snapshot = models.CharField(max_length=250, blank=True)
+    snapshot_hash = models.CharField(max_length=100, blank=True)
+    snapshot_date = models.DateTimeField(auto_now_add=True)
+
     # Required by xml template but for now static
     invoice_type_code = 380
     currency_code = "EUR"
@@ -106,6 +113,15 @@ class Invoice(models.Model):
 
     def price_gross(self):
         return self.price_net() + self.price_tax()
+
+    def take_snapshot(self):
+        self.snapshot_date = timezone.now()
+        self.snapshot = serializers.serialize('json', [self.customer, self.payee]).encode('utf-8')
+        self.snapshot_hash = hashlib.sha256(self.snapshot).hexdigest()
+        self.save()
+
+    def check_snapshot(self):
+        return self.snapshot_hash == hashlib.sha256(serializers.serialize('json', [self.customer, self.payee]).encode('utf-8')).hexdigest()
 
     def __str__(self):
         return str(self.invoice_number)

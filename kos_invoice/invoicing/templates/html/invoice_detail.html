@@ -31,8 +31,24 @@
             </div>
         </div>
     </div>
+    <div class="soft">
+        {% if invoice.check_snapshot %}
+            <i class="fa-solid fa-check fa-1x" style="color: green;"></i>
+        {% else %}
+            <i class="fa-solid fa-xmark fa-1x" style="color: red;"></i>
+            <span class="soft" style="color: red !important;">
+                Snapshot mismatch, proceed with care
+            </span>
+            <span class="soft">
+                |
+            </span>
+        {% endif %}
+        <span class="soft">
+            Snapshot {{ invoice.snapshot_hash }} on {{ invoice.snapshot_date }}
+        </span>
+    </div>
     <div class="spacer"></div>
-    <div class="invoice" style="">
+    <div class="invoice">
         <div class="invoice-title" style="text-align: center;"></div>
         <div class="invoice-head" style="display: flex;">
             <div class="invoice-head-left" style="margin: 0 auto 0 0;">

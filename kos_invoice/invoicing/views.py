@@ -103,10 +103,10 @@ def invoice_create(request, project_id):
         form = InvoiceForm(request.POST)
         if form.is_valid():
             invoice = form.save()
+            invoice.take_snapshot()
             messages.success(request, 'Invoice created successfully.')
             return redirect('invoice_detail', project_id=project_id, invoice_id=invoice.id)
-        else:
-            form = InvoiceForm(request.POST)
+        form = InvoiceForm(request.POST)
 
     context = {
         'ts': ts,
