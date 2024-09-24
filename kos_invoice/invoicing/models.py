@@ -106,13 +106,13 @@ class Invoice(models.Model):
     tax_percentage = models.DecimalField(max_digits=10, decimal_places=2)
 
     def price_net(self):
-        return sum([item.price_net for item in self.invoice_items.all()])
+        return round(sum([item.price_net * item.amount for item in self.invoice_items.all()]), 2)
 
     def price_tax(self):
         return round(self.price_net() * self.tax_percentage / 100, 2)
 
     def price_gross(self):
-        return self.price_net() + self.price_tax()
+        return round(self.price_net() + self.price_tax(), 2)
 
     def take_snapshot(self):
         self.snapshot_date = timezone.now()
@@ -140,3 +140,6 @@ class InvoiceItem(models.Model):
     price_net = models.DecimalField(max_digits=10, decimal_places=2)
     period_start = models.DateField(blank=False)
     period_end = models.DateField(blank=False)
+
+    def price_total(self):
+        return round(self.price_net * self.amount, 2)

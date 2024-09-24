@@ -94,7 +94,7 @@
         <cac:InvoiceLine>
             <cbc:ID>{{ item.id }}</cbc:ID>
             <cbc:InvoicedQuantity unitCode="{{ item.unit_code }}">{{ item.amount }}</cbc:InvoicedQuantity>
-            <cbc:LineExtensionAmount currencyID="{{ invoice.currency_code }}">{{ item.price_net }}</cbc:LineExtensionAmount>
+            <cbc:LineExtensionAmount currencyID="{{ invoice.currency_code }}">{{ item.price_total }}</cbc:LineExtensionAmount>
             <cac:InvoicePeriod>
                 <cbc:StartDate>{{ item.period_start|date:"Y-m-d" }}</cbc:StartDate>
                 <cbc:EndDate>{{ item.period_end|date:"Y-m-d" }}</cbc:EndDate>

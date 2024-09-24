@@ -129,9 +129,17 @@
                                 <div class="soft"></div>
                                 <div>{{ item.period_start }} - {{ item.period_end }}</div>
                             </div>
-                            <div style="margin: auto 1rem auto auto; text-align: right;">
+                            <div style="margin: auto 2rem auto auto; text-align: right; width: 5rem;">
                                 <div class="soft">Amount</div>
+                                <div>{{ item.amount }}</div>
+                            </div>
+                            <div style="margin: auto 2rem auto 0; text-align: right; width: 5rem;">
+                                <div class="soft">Price</div>
                                 <div>{{ item.price_net }}</div>
+                            </div>
+                            <div style="margin: auto 1rem auto 0; text-align: right; width: 5rem;">
+                                <div class="soft">Total</div>
+                                <div>{{ item.price_total }}</div>
                             </div>
                             <div style="margin-left: 1rem;">
                                 {% with project_id=project.id|stringformat:'s' invoice_id=invoice.id|stringformat:'s' item_id=item.id|stringformat:'s' %}
