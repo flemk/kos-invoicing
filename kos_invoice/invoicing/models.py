@@ -76,6 +76,8 @@ class Invoice(models.Model):
     snapshot_hash = models.CharField(max_length=100, blank=True)
     snapshot_date = models.DateTimeField(auto_now_add=True)
 
+    #locked = models.BooleanField(default=False)
+
     # Required by xml template but for now static
     invoice_type_code = 380
     currency_code = "EUR"
