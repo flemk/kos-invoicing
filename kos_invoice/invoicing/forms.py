@@ -18,16 +18,43 @@ class CreateUserForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 class CustomerForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        project = kwargs.pop('project', None)
+
+        super(CustomerForm, self).__init__(*args, **kwargs)
+
+        if project:
+            self.fields['project'].initial = project
+            self.fields['project'].disabled = True
+
     class Meta:
         model = Customer
         fields = '__all__'
 
 class PayeeForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        project = kwargs.pop('project', None)
+
+        super(CustomerForm, self).__init__(*args, **kwargs)
+
+        if project:
+            self.fields['project'].initial = project
+            self.fields['project'].disabled = True
+
     class Meta:
         model = Payee
         fields = '__all__'
 
 class InvoiceForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        project = kwargs.pop('project', None)
+
+        super(CustomerForm, self).__init__(*args, **kwargs)
+
+        if project:
+            self.fields['project'].initial = project
+            self.fields['project'].disabled = True
+
     project = forms.ModelChoiceField(
         queryset=Project.objects.all(), # TODO filter by user
         widget=forms.Select(
@@ -89,6 +116,15 @@ class InvoiceForm(forms.ModelForm):
             ]
 
 class InvoiceItemForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        invoice = kwargs.pop('invoice', None)
+
+        super(InvoiceItemForm, self).__init__(*args, **kwargs)
+
+        if invoice:
+            self.fields['invoice'].initial = invoice
+            self.fields['invoice'].disabled = True
+
     period_start = forms.DateField(widget=forms.DateInput(
         attrs={'type': 'date',}))
     period_end = forms.DateField(widget=forms.DateInput(

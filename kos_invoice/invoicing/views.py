@@ -97,7 +97,8 @@ def invoice_edit(request, project_id, invoice_id):
 @login_required
 def invoice_create(request, project_id):
     user = request.user
-    form = InvoiceForm()
+    project = Project.objects.get(id=project_id)
+    form = CustomerForm(project=project)
 
     if request.method == 'POST':
         form = InvoiceForm(request.POST)
@@ -141,7 +142,7 @@ def invoice_export(request, project_id, invoice_id, filetype):
 @login_required
 def invoice_item_add(request, project_id, invoice_id):
     invoice = Invoice.objects.get(id=invoice_id)
-    form = InvoiceItemForm()
+    form = InvoiceItemForm(invoice=invoice)
 
     if request.method == 'POST':
         form = InvoiceItemForm(request.POST)
@@ -232,7 +233,8 @@ def customer_edit(request, project_id, customer_id):
 
 @login_required
 def customer_create(request, project_id):
-    form = CustomerForm()
+    project = Project.objects.get(id=project_id)
+    form = CustomerForm(project=project)
 
     if request.method == 'POST':
         form = CustomerForm(request.POST)
@@ -294,7 +296,8 @@ def payee_edit(request, project_id, payee_id):
 
 @login_required
 def payee_create(request, project_id):
-    form = PayeeForm()
+    project = Project.objects.get(id=project_id)
+    form = CustomerForm(project=project)
 
     if request.method == 'POST':
         form = PayeeForm(request.POST)
