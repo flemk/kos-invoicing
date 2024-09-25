@@ -101,7 +101,7 @@ def invoice_create(request, project_id):
     form = CustomerForm(project=project)
 
     if request.method == 'POST':
-        form = InvoiceForm(request.POST)
+        form = InvoiceForm(request.POST, project=project)
         if form.is_valid():
             invoice = form.save()
             invoice.take_snapshot()
@@ -145,7 +145,7 @@ def invoice_item_add(request, project_id, invoice_id):
     form = InvoiceItemForm(invoice=invoice)
 
     if request.method == 'POST':
-        form = InvoiceItemForm(request.POST)
+        form = InvoiceItemForm(request.POST, invoice=invoice)
         if form.is_valid():
             form.save()
             messages.success(request, 'Invoice Item added successfully.')
@@ -237,7 +237,7 @@ def customer_create(request, project_id):
     form = CustomerForm(project=project)
 
     if request.method == 'POST':
-        form = CustomerForm(request.POST)
+        form = CustomerForm(request.POST, project=project)
         if form.is_valid():
             form.save()
             messages.success(request, 'Customer created successfully.')
@@ -300,7 +300,7 @@ def payee_create(request, project_id):
     form = CustomerForm(project=project)
 
     if request.method == 'POST':
-        form = PayeeForm(request.POST)
+        form = PayeeForm(request.POST, project=project)
         if form.is_valid():
             form.save()
             messages.success(request, 'Payee created successfully.')

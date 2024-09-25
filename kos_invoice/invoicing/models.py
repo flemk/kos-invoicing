@@ -123,7 +123,8 @@ class Invoice(models.Model):
         self.save()
 
     def check_snapshot(self):
-        return self.snapshot_hash == hashlib.sha256(serializers.serialize('json', [self.customer, self.payee]).encode('utf-8')).hexdigest()
+        return self.snapshot_hash == hashlib.sha256(
+            serializers.serialize('json', [self.customer, self.payee]).encode('utf-8')).hexdigest()
 
     def __str__(self):
         return str(self.invoice_number)
