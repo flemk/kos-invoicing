@@ -10,7 +10,7 @@ ADD . /app
 RUN pip install --no-cache-dir -r requirements.txt
 RUN python ./kos_invoice/manage.py collectstatic --noinput
 
-RUN sed -i 's/%KOS_INVOICING_WEB_VERSION%/'"$KOS_INVOICING_WEB_VERSION"'/g' ./kos_invoice/intercom/templates/base.html
+RUN sed -i 's/%KOS_INVOICING_WEB_VERSION%/'"$KOS_INVOICING_WEB_VERSION"'/g' ./kos_invoice/invoicing/templates/html/base.html
 
 RUN openssl req -x509 -newkey rsa:4096 -keyout ./crt/key.pem -out ./crt/cert.pem -days 365 -nodes -subj '/CN=localhost'
 RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*

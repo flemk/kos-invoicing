@@ -24,13 +24,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-%qb&bv$hq+vzvj5n3vi@$d7nee7li4%!%bvd=@x^!hokq0u-&n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    os.getenv('ALLOWED_HOST', 'localhost'),
+    ]
+CSRF_TRUSTED_ORIGINS = [
+    os.getenv('CSRF_TRUSTED_ORIGIN', 'https://localhost'),
+    ]
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -80,6 +83,14 @@ WSGI_APPLICATION = 'kos_invoice.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB', 'db'),
+        'USER': os.getenv('POSTGRES_USER', 'postgres_user'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'postgres_password'),
+        'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
+        'PORT': os.getenv('POSTGRES_PORT', '5432'),
+    },
+    'development': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
@@ -128,3 +139,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom settings
+LOGIN_URL = '/login/'
+#SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
