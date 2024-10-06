@@ -1,5 +1,7 @@
 FROM python:3.12.4-bookworm
 
+LABEL org.opencontainers.image.source https://github.com/flemk/kos-invoicing
+
 ARG KOS_INVOICING_WEB_VERSION
 
 EXPOSE 80 443
