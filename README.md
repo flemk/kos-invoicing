@@ -8,7 +8,9 @@ Yes, but focusing on accessibility, openness and ease of use.
 
 ## Screenshots
 ![Login screen](./src/login_view.png)
-
+![Dashboard](./src/dashboard_view.png)
+![Dashboard](./src/customer_view.png)
+![Dashboard](./src/invoice_view.png)
 
 ## Documentation
 tba.
