@@ -7,7 +7,8 @@
 Yes, but focusing on accessibility, openness and ease of use.
 
 ## Screenshots
-tba.
+![Login screen](./src/login_view.png)
+
 
 ## Documentation
 tba.
